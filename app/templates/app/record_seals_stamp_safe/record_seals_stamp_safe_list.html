@@ -1,0 +1,109 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %}  Журнал реєстрації резервних копій {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4">  Журнал обліку печаток, штампів та сейфів </h2>
+
+            </div>
+
+                <a href="/record_seals_stamp_safe/create"><span class="fas fa-plus mr-2"></span>Створити запис</a>
+
+
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>№ з\п</th>
+                <th>№, відбиток індивідульної печатки</th>
+                <th>№ сейфа</th>
+                <th>Дата видачі, реєстрації</th>
+                <th>Посада, ПІБ та підпис посадової особи про прийняття</th>
+                <th>Дата повернення індивідуальної печатки та/або сеффового ключа</th>
+                <th>Підпис адміністратора безпеки та аудиту про повернення індивідуальної
+                    печатки та/або сейфого ключа посадовою особою</th>
+                <th>Примітка</th>
+                <th>Операції</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.numbers_imprint_individual_seal}}</td>
+                <td>{{transaction.number_safe}}</td>
+                <td>{{transaction.registration_issue_date|date:'Y-m-d'}}</td>
+                <td><a class="dropdown-item edit_item" href="/signinvate/create/record_seals_stamp_safe/author_position_signature/{{transaction.id}}">
+                    {% if  transaction.author_position_signature.user_sign.last_name %}
+                        {% if transaction.author_position_signature.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         </a> {{transaction.author_position_signature.user_sign.last_name}}
+                       {% else %}
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+
+                {% endif %}
+                </td>
+            <td> {{ transaction.return_date|date:'Y-m-d' }}
+                </td>
+
+            <td><a class="dropdown-item edit_item" href="/signinvate/create/record_seals_stamp_safe/security_signature/{{transaction.id}}">
+                    {% if  transaction.security_signature.user_sign.last_name %}
+                        {% if transaction.security_signature.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         </a> {{transaction.security_signature.user_sign.last_name}}
+                       {% else %}
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+
+                {% endif %}
+                </td>
+
+            <td>{{transaction.notes}} </td>
+            <td><a class="dropdown-item edit_item" href="/record_seals_stamp_safe/edit/{{transaction.id}}">
+                    <span class="fas fa-edit mr-2"></span>Ред.
+                    </a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+
+    </main>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

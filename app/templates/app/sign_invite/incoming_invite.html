@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %}  Журнал реєстрації резервних копій {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> Запити на підписання запису в журналі</h2>
+
+            </div>
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>Номер запиту</th>
+                <th>Назва журналу</th>
+                <th>Дата запиту</th>
+                <th>Підпис</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for invite in invates %}
+
+                <td>{{invite.id}}</td>
+                <td>{{invite.jurnal|get_jornal_name}}</td>
+                <td>{{invite.created_time|date:'Y-m-d'}}</td>
+                <td><a href="/signinvate/preview/{{invite.id}}">
+                     <span class="fas fa-file-signature mr-2"></span>
+                     Переглянути на підписати
+                </a></td>
+
+   </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

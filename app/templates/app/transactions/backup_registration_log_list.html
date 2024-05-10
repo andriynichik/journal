@@ -1,0 +1,89 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %}  Журнал реєстрації резервних копій {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> Журнал реєстрації резервних копій</h2>
+
+            </div>
+
+                <a href="/backup_registration_log/create"><span class="fas fa-plus mr-2"></span>Створити запис</a>
+
+
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>№ НОСІЯ ІНФОРМАЦІЇ З РЕЗЕРВНОЮ КОПІЄЮ</th>
+                <th>ПІБ ПОСАДОВОЇ ОСОБИ, ЩО СТВОРИЛА РЕЗЕРВНУ КОПІЮ</th>
+                <th>ПОСАДА</th>
+                <th>ДАТА СТВОРЕННЯ РЕЗЕРВНОЇ КОПІЇ</th>
+                <th>Підпис</th>
+                <th>Операції</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.number_device_beckup_info}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.role|role_view}}</td>
+                <td>{{transaction.created|date:'Y-m-d'}}</td>
+                <td>
+                    {% if  transaction.user_sign.user_sign.last_name %}
+                        {% if transaction.status %}
+                                Підписано:
+                            {% else %}
+                        	    Призназначено на підпис:
+                        {% endif %}
+                         </a> {{transaction.user_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/backup_registration_log/user_sign/{{transaction.id}}">
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис </a>
+
+                {% endif %}
+                </td>
+
+{#            <td><a class="dropdown-item edit_item" href="/signinvate/create/backup_registration_log/user_sign/{{transaction.id}}">#}
+{##}
+{#                 <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис</a></td>#}
+                <td> <a class="dropdown-item edit_item" href="/backup_registration_log/edit/{{transaction.id}}">
+                    <span class="fas fa-edit mr-2"></span>Ред.
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

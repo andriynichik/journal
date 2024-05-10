@@ -1,0 +1,98 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+
+
+{% block title %}  Журнал реєстрації резервних копій {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> Користувачі в системі</h2>
+
+            </div>
+
+<a href="/user/create"><span class="fas fa-plus mr-2"></span>Створити акаунт</a>
+
+
+        </div>
+
+        <div class="table-settings mb-4">
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col-4 col-md-2 col-xl-1 pl-md-0 text-right">
+                    <div class="btn-group">
+
+                        <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
+                            <span class="dropdown-item font-weight-bold text-dark">Show</span>
+                            <a class="dropdown-item d-flex font-weight-bold" href="#">10 <span
+                                    class="icon icon-small ml-auto"><span class="fas fa-check"></span></span></a>
+                            <a class="dropdown-item font-weight-bold" href="#">20</a>
+                            <a class="dropdown-item font-weight-bold" href="#">30</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>email</th>
+                <th>ПІБ</th>
+                <th>Роль</th>
+                <th>Дата приєднаня</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.email}}</td>
+                <td>{{transaction.last_name}}</td>
+                <td>{{transaction.role|role_view}}</td>
+                <td>{{transaction.date_joined|date:'Y-m-d'}}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
