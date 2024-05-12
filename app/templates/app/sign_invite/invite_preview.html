@@ -55,7 +55,7 @@
 
 
 
-    {% if invite.jurnal == 'backup_registration_log' %}
+{% if invite.jurnal == 'backup_registration_log' %}
 
     <table id="user_list" style="width:100%">
         <thead>
@@ -82,7 +82,73 @@
 {% endif %}
 
 
+{% if invite.jurnal == 'accounting_kzi_nki_kned_diia' %}
 
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+                    <form action="">
+                        <input type="file">
+                        <input type="submit" value="Підписати">
+                    </form>
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+    {% if invite.jurnal == 'accounting_kzi_nki_kned_diia_cold_reserve' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+                    <form action="">
+                        <input type="file">
+                        <input type="submit" value="Підписати">
+                    </form>
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
 
 
 

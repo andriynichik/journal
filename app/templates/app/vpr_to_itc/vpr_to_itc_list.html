@@ -1,0 +1,142 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %} {{'vpr_to_itc'|get_jornal_name}} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> {{'vpr_to_itc'|get_jornal_name}}  </h2>
+
+            </div>
+
+                <a href="/vpr_to_itc/create"><span class="fas fa-plus mr-2"></span>Створити запис</a>
+
+
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ІД</th>
+                <th>№</th>
+                <th>Позначення ВПРП - Підстава</th>
+                <th>Позначення ВПРП - Дата</th>
+                <th>Позначення ВПРП - Підпис системного адміністратора</th>
+                <th>Відомості про підключення ВПРП - Підпис адміністратора безпеки та аудиту</th>
+                <th>Відомості про підключення ВПРП - Підстава</th>
+                <th>Відомості про підключення ВПРП - Дата</th>
+                <th>Відомості про відключення ВПРП - Підпис системного адміністратора</th>
+                <th>Відомості про відключення ВПРП - Підпис адміністратора безпеки та аудиту</th>
+                <th>Редагування</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.numbers_jornal}}</td>
+                <td>{{transaction.denotation_vprp_basis}}</td>
+                <td>{{ transaction.denotation_vprp_date|date:'Y-m-d' }}</td>
+                <td>
+                    {% if  transaction.denotation_vprp_sign.user_sign.last_name %}
+                        {% if transaction.denotation_vprp_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                          {{transaction.denotation_vprp_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/vpr_to_itc/denotation_vprp_sign/{{transaction.id}}">
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                    </a>
+                  {% endif %}
+                </td>
+
+                <td>
+                    {% if  transaction.connection_information_vprp_sysadmin_sign.user_sign.last_name %}
+                        {% if transaction.connection_information_vprp_sysadmin_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         {{transaction.connection_information_vprp_sysadmin_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/vpr_to_itc/connection_information_vprp_sysadmin_sign/{{transaction.id}}">
+                            <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                        </a>
+                  {% endif %}
+                </td>
+                <td>{{transaction.connection_information_vprp_basis}}</td>
+                <td>{{transaction.connection_information_vprp_date|date:'Y-m-d' }}</td>
+                <td>
+                    {% if  transaction.disconectation_vprp_sysadmin_sign.user_sign.last_name %}
+                        {% if transaction.disconectation_vprp_sysadmin_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                        {{transaction.disconectation_vprp_sysadmin_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/vpr_to_itc/disconectation_vprp_sysadmin_sign/{{transaction.id}}">
+                            <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                         </a>
+                  {% endif %}
+                </td>
+                <td>
+                    {% if  transaction.disconectation_vprp_seqadmin_sign.user_sign.last_name %}
+                        {% if transaction.disconectation_vprp_seqadmin_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                          {{transaction.disconectation_vprp_seqadmin_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/vpr_to_itc/disconectation_vprp_seqadmin_sign/{{transaction.id}}">
+                            <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                        </a>
+                  {% endif %}
+                </td>
+
+            <td><a class="dropdown-item edit_item" href="/vpr_to_itc/edit/{{transaction.id}}">
+                    <span class="fas fa-edit mr-2"></span>Ред.
+                    </a>
+            </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+
+    </main>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,130 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %} Журнал обліку КЗІ та НКІ КНЕД Дія {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> Журнал обліку КЗІ та НКІ КНЕД Дія </h2>
+
+            </div>
+
+                <a href="/accounting_kzi_nki_kned_diia/create"><span class="fas fa-plus mr-2"></span>Створити запис</a>
+
+
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>ПІБ особи, відповідальної за облік засобів КЗІ та НКІ, підпис</th>
+                <th>ПІБ особи, що отримала засіб КЗІ та НКІ (дата, підпис)</th>
+                <th>Відмітка про повернення засобу КЗІ та НКІ </th>
+                <th>Відмітка про знищення засобу КЗІ та НКІ </th>
+                <th>Редагування</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.tool_kzi_type|convertation_kzi}} - {{transaction.tool_kzi_number}}</td>
+                <td>{{transaction.nki_type|convertation_nki}} - {{transaction.nki_number}}</td>
+                <td>{{ transaction.act_commissioning_kzi_facilities }}</td>
+                <td>{{ transaction.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ transaction.inverter_numbers_peom }}</td>
+
+
+                <td><a class="dropdown-item edit_item" href="/signinvate/create/accounting_kzi_nki_kned_diia/accounting_kzi_nki_sign/{{transaction.id}}">
+                    {% if  transaction.accounting_kzi_nki_sign.user_sign.last_name %}
+                        {% if transaction.accounting_kzi_nki_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         </a> {{transaction.accounting_kzi_nki_sign.user_sign.last_name}}
+                       {% else %}
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+
+                {% endif %}
+                </td>
+
+
+                 <td><a class="dropdown-item edit_item" href="/signinvate/create/accounting_kzi_nki_kned_diia/get_remedy_kzi_nki_sign/{{transaction.id}}">
+                    {% if  transaction.get_remedy_kzi_nki_sign.user_sign.last_name %}
+                        {% if transaction.get_remedy_kzi_nki_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         </a> {{transaction.get_remedy_kzi_nki_sign.user_sign.last_name}}
+                       {% else %}
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+
+                {% endif %}
+                </td>
+
+                <td><a class="dropdown-item edit_item" href="/signinvate/create/accounting_kzi_nki_kned_diia/note_return_means_sign/{{transaction.id}}">
+                    {% if  transaction.note_return_means_sign.user_sign.last_name %}
+                        {% if transaction.note_return_means_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         </a> {{transaction.note_return_means_sign.user_sign.last_name}}
+                       {% else %}
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+
+                {% endif %}
+                </td>
+
+
+            <td> {{ transaction.note_romove_means_sign }} </td>
+            <td><a class="dropdown-item edit_item" href="/accounting_kzi_nki_kned_diia/edit/{{transaction.id}}">
+                    <span class="fas fa-edit mr-2"></span>Ред.
+                    </a>
+            </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+
+    </main>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
+
 
 from django.shortcuts import render
 
@@ -49,10 +47,25 @@ def register_user(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+
+            login = form.cleaned_data.get("login")
             email = form.cleaned_data.get("email")
-            raw_password = form.cleaned_data.get("password1")
-            user = authenticate(email=email, password=raw_password)
+            password = form.cleaned_data.get("password1")
+            confirm_password = form.cleaned_data.get("password2")
+            last_name = form.cleaned_data.get("last_name")
+            role = form.cleaned_data.get("role")
+
+            if password != confirm_password:
+                messages.warning(request, 'Паролі не співпадають')
+                return render(request, 'accounts/register.html', {'form': form})
+
+            user = User.objects.create_user(login, email, password)
+            user.role = role
+            user.save()
+            # form.save()
+            # email = form.cleaned_data.get("email")
+            # raw_password = form.cleaned_data.get("password1")
+            # user = authenticate(email=email, password=raw_password)
 
             msg    = 'User created - please <a href="/login">login</a>.'
             success = True
@@ -77,8 +90,30 @@ def UserCreate(request):
     data = {}
     form = SignUpForm(request.POST or None)
     if request.method == 'POST':
+
+
         if form.is_valid():
-            form.save()
+            # login = form.cleaned_data.get("login")
+            # email = form.cleaned_data.get("email")
+            # password = form.cleaned_data.get("password1")
+            # confirm_password = form.cleaned_data.get("password2")
+            # last_name = form.cleaned_data.get("last_name")
+            # role = form.cleaned_data.get("role")
+            # if password != confirm_password:
+            #     messages.warning(request, 'Паролі не відповідні')
+            #     return render(request, 'accounts/register.html', {'form': form})
+            #
+            # user = User.objects.create_user(username=login, email=email,password=password)
+            # user.role = role
+            # user.last_name = last_name
+            # user.save()
+            user =  form.save(commit=False)
+            user.is_active = True
+            user.set_password(form.cleaned_data.get("password1"))
+            user.last_name = form.cleaned_data.get("last_name")
+            user.role = form.cleaned_data.get("role")
+            user.save()
+
             messages.success(request, 'Користувача створено')
             return redirect('/users/list')
     data['form'] = form

@@ -1,28 +1,12 @@
-from django.shortcuts import render
 from .models import  BackupRegistrationLog
-from django.views import View
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import render,redirect
 from .forms import BackupRegistrationLogForm
 from django.utils.timezone import now
-from authentication.models import User
 from django.contrib import messages
 
 
-from django import template
 
-
-# Create your views here.
-# class BackupRegistrationLogView(View):
-#     context = {'segment': 'backup_registration_log'}
-#     def get(self, request, template=None, *args, **kwargs):
-#         transactions = BackupRegistrationLog.objects.all()
-#         self.context['transactions'] = transactions
-#         template = loader.get_template('app/transactions/backup_registration_log_list.html')
-#         # template = loader.get_template("backup_registration_log_list.html")
-#         return HttpResponse(template.render(self.context, request))
 @login_required
 def BackupRegistrationLogList(request):
     transactions = BackupRegistrationLog.objects.all().select_related()

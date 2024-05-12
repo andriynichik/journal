@@ -21,7 +21,7 @@ if not SECRET_KEY:
     SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = os.getenv('DEBUG', True)
 
 # HOSTs List
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -37,6 +37,16 @@ INSTALLED_APPS = [
     'import_export',
     'backup_registration_log',
     'record_seals_stamp_safe',
+    'accounting_kzi_nki_kned_diia',
+    'accounting_kzi_nki_kned_diia_cold_reserve',
+    'accounting_kzi_nki_kned_diia_main_site',
+    'accounting_kzi_nki_kned_diia_reserve_site',
+    'accounting_kzi_nki_kned_diia_software_tools',
+    'vpr_to_itc',
+    'gbrd_log',
+    'backup_registration_log_vprp',
+    'accounting_kzi_nki_vprp',
+    'key_data_log',
     'authentication',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,0 +1,116 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %} {{'gbrd_log'|get_jornal_name}} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4"> {{'gbrd_log'|get_jornal_name}}  </h2>
+
+            </div>
+
+                <a href="/gbrd_log/create"><span class="fas fa-plus mr-2"></span>Створити запис</a>
+
+
+        </div>
+
+
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>Тип операції з ключовими даними</th>
+                <th>Дата</th>
+                <th>Тип ключових даних</th>
+                <th>Обл.№ ключового документу</th>
+                <th>ПІБ посадової особи, підпис</th>
+                <th>ПІБ адміністратора безпеки, підпис</th>
+                <th>Примітки</th>
+                <th>Редагування</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.operation_type|convertation_operation}}</td>
+                <td>{{transaction.date_time|date:'Y-m-d' }}</td>
+                <td>{{transaction.data_type}}</td>
+                <td>{{transaction.number_document}}</td>
+
+
+                <td> {{transaction.user_sign.user}}
+                    {% if  transaction.user_sign.user_sign.last_name %}
+                        test
+                        {% if transaction.user_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                          {{transaction.user_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/gbrd_log/user_sign/{{transaction.id}}">
+                    <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                    </a>
+                  {% endif %}
+                </td>
+
+
+
+                <td>
+                    {% if  transaction.admin_sign.user_sign.last_name %}
+                        {% if transaction.admin_sign.status %}
+                                Підписано:
+                            {% else %}
+                                Призначено на підпис:
+
+                        {% endif %}
+                         {{transaction.admin_sign.user_sign.last_name}}
+                       {% else %}
+                        <a class="dropdown-item edit_item" href="/signinvate/create/gbrd_log/admin_sign/{{transaction.id}}">
+                            <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис
+                        </a>
+                  {% endif %}
+                </td>
+
+                <td>{{transaction.notes}}</td>
+
+            <td><a class="dropdown-item edit_item" href="/gbrd_log/edit/{{transaction.id}}">
+                    <span class="fas fa-edit mr-2"></span>Ред.
+                    </a>
+            </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+
+    </main>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

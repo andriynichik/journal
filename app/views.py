@@ -14,13 +14,23 @@ from django.urls import reverse
 from django.views import View
 from django.contrib import messages
 
+from accounting_kzi_nki_kned_diia_cold_reserve.models import Accounting_KZI_NKI_KNED_DIIA_COLD_RESERVE
+from accounting_kzi_nki_kned_diia_main_site.models import Accounting_KZI_NKI_KNED_DIIA_MAIN_SITE
+from accounting_kzi_nki_kned_diia_reserve_site.models import Accounting_KZI_NKI_KNED_DIIA_RESERVE_SITE
+from accounting_kzi_nki_kned_diia_software_tools.models import Accounting_KZI_NKI_KNED_DIIA_SOFTWARE_TOOLS
 from authentication.models import User
 from backup_registration_log.forms import  BackupRegistrationLogForm
 from backup_registration_log.models import BackupRegistrationLog
 from app.utils import set_pagination
 from app.forms import TransactionForm
 from app.models import Transaction , SignInvate
+from key_data_log.models import KeyDataLog
 from record_seals_stamp_safe.models import RecordSealsStampSafe
+from accounting_kzi_nki_kned_diia.models import Accounting_KZI_NKI_KNED_DIIA
+from vpr_to_itc.models import VPRPTOITC
+from gbrd_log.models import GRDBLog
+from backup_registration_log_vprp.models import BackupRegistrationLogVPRP
+from accounting_kzi_nki_vprp.models import Accounting_KZI_NKI_VPRP
 
 # @login_required
 # def RecordSealsStampSafeCreate(request):
@@ -42,7 +52,14 @@ from record_seals_stamp_safe.models import RecordSealsStampSafe
 def get_jornal_name(value):
     data = {
         "record_seals_stamp_safe": "Журналу обліку печаток, штампів та сейфів",
-        "backup_registration_log": "Журнал резервних копій ІКС"
+        "backup_registration_log": "Журнал резервних копій ІКС",
+        "backup_registration_log_vprp": "Журнал резервних копій ВПРП",
+        "accounting_kzi_nki_kned_diia": "Журнал обліку КЗІ та НКІ КНЕД Дія",
+        "accounting_kzi_nki_vprp": "Журнал обліку КЗІ та НКІ ВПРП",
+
+        "accounting_kzi_nki_kned_diia_cold_reserve" : "Журнал обліку засобів криптографічного захисту інформації та носіїв ключової інформації інформаційно-комунікаційної системи КНЕДП «Дія» (Холодний резерв).",
+        "vpr_to_itc": "Журнал обліку ВПРП, що підключені до ІТС КНЕДП Дія",
+        "gbrd_log": "Журнал генерації, рез. копіюв., відновл. та знищ. кл. даних",
     }
     if value in data:
         return data[value]
@@ -52,8 +69,20 @@ def get_jornal_name(value):
 
 def get_model_by_jornal(jornal_name):
     mod = {
-        "record_seals_stamp_safe" : RecordSealsStampSafe,
-        "backup_registration_log" : BackupRegistrationLog,
+        "record_seals_stamp_safe": RecordSealsStampSafe,
+        "backup_registration_log": BackupRegistrationLog,
+        "backup_registration_log_vprp": BackupRegistrationLogVPRP,
+        "accounting_kzi_nki_kned_diia": Accounting_KZI_NKI_KNED_DIIA,
+        "accounting_kzi_nki_kned_diia_cold_reserve": Accounting_KZI_NKI_KNED_DIIA_COLD_RESERVE,
+        "accounting_kzi_nki_kned_diia_main_site": Accounting_KZI_NKI_KNED_DIIA_MAIN_SITE,
+        "accounting_kzi_nki_kned_diia_reserve_site": Accounting_KZI_NKI_KNED_DIIA_RESERVE_SITE,
+        "accounting_kzi_nki_kned_diia_software_tools": Accounting_KZI_NKI_KNED_DIIA_SOFTWARE_TOOLS,
+        "vpr_to_itc": VPRPTOITC,
+        "gbrd_log" : GRDBLog,
+        "accounting_kzi_nki_vprp": Accounting_KZI_NKI_VPRP,
+        "key_data_log": KeyDataLog,
+
+
     }
     if jornal_name in mod:
         return mod[jornal_name]
@@ -77,6 +106,71 @@ def change_jornal_sign(model, context, sign_id):
             model.objects.filter(id=context["record_id"]).update(security_signature=sign_id)
     elif context["jurnal"]['system_name'] == "backup_registration_log":
         model.objects.filter(id=context["record_id"]).update(user_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_kned_diia":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_kned_diia_cold_reserve":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_kned_diia_main_site":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_kned_diia_reserve_site":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_kned_diia_software_tools":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "vpr_to_itc":
+        if context['field_name'] == "denotation_vprp_sign":
+            model.objects.filter(id=context["record_id"]).update(denotation_vprp_sign=sign_id)
+        elif context['field_name'] == "connection_information_vprp_sysadmin_sign":
+            model.objects.filter(id=context["record_id"]).update(connection_information_vprp_sysadmin_sign=sign_id)
+        elif context['field_name'] == "disconectation_vprp_sysadmin_sign":
+            model.objects.filter(id=context["record_id"]).update(disconectation_vprp_sysadmin_sign=sign_id)
+        elif context['field_name'] == "disconectation_vprp_seqadmin_sign":
+            model.objects.filter(id=context["record_id"]).update(disconectation_vprp_seqadmin_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "gbrd_log":
+        if context['field_name'] == "user_sign":
+            model.objects.filter(id=context["record_id"]).update(user_sign=sign_id)
+        elif context['field_name'] == "admin_sign":
+            model.objects.filter(id=context["record_id"]).update(admin_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "backup_registration_log_vprp":
+        model.objects.filter(id=context["record_id"]).update(user_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "accounting_kzi_nki_vprp":
+        if context['field_name'] == "accounting_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(accounting_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "get_remedy_kzi_nki_sign":
+            model.objects.filter(id=context["record_id"]).update(get_remedy_kzi_nki_sign=sign_id)
+        elif context['field_name'] == "note_return_means_sign":
+            model.objects.filter(id=context["record_id"]).update(note_return_means_sign=sign_id)
+    elif context["jurnal"]['system_name'] == "key_data_log":
+        if context['field_name'] == "user_sign":
+            model.objects.filter(id=context["record_id"]).update(user_sign=sign_id)
+        elif context['field_name'] == "admin_sign":
+            model.objects.filter(id=context["record_id"]).update(admin_sign=sign_id)
+
+
 
 
 
@@ -105,9 +199,6 @@ def sign_invite_create(request, jurnal,  field_name, record_id):
                         )
         try:
             invite.save()
-
-            print('=============', invite.id)
-            # model_name.objects.filter(id=record_id).update(field_name=invite.id)
             change_jornal_sign(model_name, context, invite.id)
             messages.success(request, 'Запит на підпис успішно створено')
         except Exception as e:
@@ -129,7 +220,6 @@ def incoming_sign_request(request):
     for invite in user_incoming_invite:
         model_name = get_model_by_jornal(invite.jurnal)
         record = model_name.objects.filter(id = invite.record_id).first()
-        print(record)
         invite_list.append({
             "records" : record,
             "invite" : invite,

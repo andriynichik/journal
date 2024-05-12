@@ -1,3 +1,4 @@
+{% load display_view %}
 
     <nav id="sidebarMenu" class="sidebar d-md-block bg-primary text-white collapse px-4">
         <div class="sidebar-sticky pt-3 mx-auto">
@@ -19,19 +20,19 @@
             </div>
             <ul class="nav flex-column">
      
-            <li class="nav-item  {% if 'transactions' in segment %} active {% endif %}">
-                <a href="{% url 'transactions' %}" class="nav-link">
-                    <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
-                    <span>Transactions</span>
-                </a>
-            </li>
+{#            <li class="nav-item  {% if 'transactions' in segment %} active {% endif %}">#}
+{#                <a href="{% url 'transactions' %}" class="nav-link">#}
+{#                    <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>#}
+{#                    <span>Transactions</span>#}
+{#                </a>#}
+{#            </li>#}
             
             
              <li class="nav-item">
                 <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-app">
                 <span>
                     <span class="sidebar-icon"><span class="fas fa-table"></span></span> 
-                    Підписи
+                    Підписи 
                 </span>
                 <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
                 </span>
@@ -50,7 +51,7 @@
             
               <li class="nav-item  {% if 'transactions' in segment %} active {% endif %}">
                 <a href="{% url 'users_list' %}" class="nav-link">
-                    <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
+                    <span class="sidebar-icon"><span class="fas  fa-user"></span></span>
                     <span>Користувачі</span>
                 </a>
             </li>
@@ -67,8 +68,8 @@
                 <div class="multi-level collapse " role="list" id="KNEDP-submenu-pages" aria-expanded="false">
                      <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#IKS-submenu-pages">
                 <span>
-                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span> 
-                    Журнал резервних копій ІКС
+                    <span class="sidebar-icon"></span>
+                    Журнали резервних копій ІКС
                 </span>
                 <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
                 </span>
@@ -87,8 +88,8 @@
                 <div class="multi-level collapse " role="list" id="KNEDP-submenu-pages" aria-expanded="false">
                      <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#OBLIK-submenu-pages">
                 <span>
-                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span> 
-                        Журнал обліку печаток, штампів та сейфів
+                    <span class="sidebar-icon"></span> 
+                        Журнали обліку печаток, штампів та сейфів
                 </span>
                 <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
                 </span>
@@ -105,10 +106,120 @@
                 </div>
             
             
+                <div class="multi-level collapse " role="list" id="KNEDP-submenu-pages" aria-expanded="false">
+                     <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#NKI-KZI-submenu-pages">
+                <span>
+                    <span class="sidebar-icon"></span> 
+                        Журнали обліку засобів КЗІ та НКІ
+                </span>
+                <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
+                </span>
+                   <div class="multi-level collapse " role="list" id="NKI-KZI-submenu-pages" aria-expanded="false">
+                    <ul class="flex-column nav">
+                            <li class="nav-item  {% if 'accounting_kzi_nki_kned_diia' in segment %} active {% endif %}">
+                <a href="{% url 'accounting_kzi_nki_kned_diia' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку КЗІ та НКІ КНЕД Дія</span>
+                </a>
+            </li>
+                    </ul> 
+                </div>
+            
+            <div class="multi-level collapse " role="list" id="NKI-KZI-submenu-pages" aria-expanded="false">
+                <ul class="flex-column nav">
+                    <li class="nav-item  {% if 'accounting_kzi_nki_kned_diia_cold_reserve' in segment %} active {% endif %}">
+                            <a href="{% url 'accounting_kzi_nki_kned_diia_cold_reserve' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку КЗІ та НКІ КНЕД Дія (Холодний резерв).</span>
+                            </a>
+                    </li>
+                </ul> 
+            </div>
+                
+            <div class="multi-level collapse " role="list" id="NKI-KZI-submenu-pages" aria-expanded="false">
+                <ul class="flex-column nav">
+                    <li class="nav-item  {% if 'accounting_kzi_nki_kned_diia_main_site' in segment %} active {% endif %}">
+                            <a href="{% url 'accounting_kzi_nki_kned_diia_main_site' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку КЗІ та НКІ КНЕД Дія (Основний майданчик)</span>
+                            </a>
+                    </li>
+                </ul> 
+            </div>
+                
+            <div class="multi-level collapse " role="list" id="NKI-KZI-submenu-pages" aria-expanded="false">
+                <ul class="flex-column nav">
+                    <li class="nav-item  {% if 'accounting_kzi_nki_kned_diia_reserve_site' in segment %} active {% endif %}">
+                            <a href="{% url 'accounting_kzi_nki_kned_diia_reserve_site' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку КЗІ та НКІ КНЕД Дія (Резервний майданчик)</span>
+                            </a>
+                    </li>
+                </ul> 
+            </div>
+                
+           <div class="multi-level collapse " role="list" id="NKI-KZI-submenu-pages" aria-expanded="false">
+                <ul class="flex-column nav">
+                    <li class="nav-item  {% if 'accounting_kzi_nki_kned_diia_software_tools' in segment %} active {% endif %}">
+                            <a href="{% url 'accounting_kzi_nki_kned_diia_software_tools' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку КЗІ та НКІ КНЕД Дія (Програмні засоби)</span>
+                            </a>
+                    </li>
+                </ul> 
+            </div>
+                    
+            <div class="multi-level collapse " role="list" id="KNEDP-submenu-pages" aria-expanded="false">
+                     <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#VPRP_ITC-submenu-pages">
+                <span>
+                    <span class="sidebar-icon"></span> 
+                        Журнал обліку ВПРП, що підключені до ІТС
+                </span>
+                <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
+                </span>
+                   <div class="multi-level collapse " role="list" id="VPRP_ITC-submenu-pages" aria-expanded="false">
+                    <ul class="flex-column nav">
+                            <li class="nav-item  {% if 'vpr_to_itc' in segment %} active {% endif %}">
+                <a href="{% url 'vpr_to_itc' %}" class="nav-link">
+                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                    <span>Журнал обліку ВПРП, що підключені до ІТС КНЕДП Дія</span>
+                </a>
+            </li>
+                    </ul> 
+                </div>
+                </div>
+                
+              <div class="multi-level collapse " role="list" id="KNEDP-submenu-pages" aria-expanded="false">
+                     <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#gbrd-submenu-pages">
+                <span>
+                    <span class="sidebar-icon"></span> 
+                        Журнал генерації, резервного копіювання, відновлення та знищення КД
+                </span>
+                <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
+                </span>
+                   <div class="multi-level collapse " role="list" id="gbrd-submenu-pages" aria-expanded="false">
+                    <ul class="flex-column nav">
+                            <li class="nav-item  {% if 'vpr_to_itc' in segment %} active {% endif %}">
+                            <a href="{% url 'gbrd_log' %}" class="nav-link">
+                                <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                                <span>Журнал генерації, рез. копіюв., відновл. та знищ. кл. даних</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </div>
+                </div>
+                
+                
+                
+                </div>
+            
+            
+            
+            
             </li>
             
             
-            
+                
             
             <li class="nav-item  {% if 'settings' in segment %} active {% endif %}">
                 <a href="/settings.html" class="nav-link">
