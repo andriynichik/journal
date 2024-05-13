@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
@@ -31,7 +31,7 @@ def login_view(request):
                 user = None
             if user is not None:
                 login(request, user)
-                return redirect("/")
+                return redirect("/home")
             else:    
                 msg = 'Не вірно вказані дані авторизації'
         else:
@@ -39,6 +39,7 @@ def login_view(request):
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg})
 
+@login_required
 def register_user(request):
 
     msg     = None
@@ -78,6 +79,8 @@ def register_user(request):
         form = SignUpForm()
 
     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
+
+
 @login_required
 def UsersList(request):
     transactions = User.objects.all()
@@ -118,3 +121,10 @@ def UserCreate(request):
             return redirect('/users/list')
     data['form'] = form
     return render(request, 'app/useus/user_create.html', data)
+
+def home(request):
+    return render(request, 'app/useus/home.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect('/accounts/login/')

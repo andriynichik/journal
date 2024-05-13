@@ -10,6 +10,8 @@ def role_view(value):
             'system_admin': 'Системний адміністратор',
             'reg_cert_admin': 'Адміністратор реєстрації та сертифікації',
             'audit_admin': 'Адміністратор аудиту',
+            'vpr': 'ВПР',
+            'var': 'ВАР'
         }
         return data[value]
     else:

@@ -3,7 +3,7 @@
 
 from django import forms
 from .models import  User
-from .models import USER_TYPE_CHOICE
+from .models import USER_TYPE_CHOICES
 
 class LoginForm(forms.Form):
     email = forms.CharField(
@@ -69,7 +69,7 @@ class SignUpForm(forms.ModelForm):
         widget=forms.Select( attrs={
 
                 "class": "form-control"
-            }, choices=USER_TYPE_CHOICE),
+            }, choices=USER_TYPE_CHOICES),
     )
 
 

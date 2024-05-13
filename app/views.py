@@ -1,7 +1,4 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -31,6 +28,7 @@ from vpr_to_itc.models import VPRPTOITC
 from gbrd_log.models import GRDBLog
 from backup_registration_log_vprp.models import BackupRegistrationLogVPRP
 from accounting_kzi_nki_vprp.models import Accounting_KZI_NKI_VPRP
+import uuid
 
 # @login_required
 # def RecordSealsStampSafeCreate(request):
@@ -60,6 +58,8 @@ def get_jornal_name(value):
         "accounting_kzi_nki_kned_diia_cold_reserve" : "Журнал обліку засобів криптографічного захисту інформації та носіїв ключової інформації інформаційно-комунікаційної системи КНЕДП «Дія» (Холодний резерв).",
         "vpr_to_itc": "Журнал обліку ВПРП, що підключені до ІТС КНЕДП Дія",
         "gbrd_log": "Журнал генерації, рез. копіюв., відновл. та знищ. кл. даних",
+        "key_data_log": "Журнал ключових даних"
+
     }
     if value in data:
         return data[value]
@@ -210,6 +210,8 @@ def sign_invite_create(request, jurnal,  field_name, record_id):
 
     return render(request, 'app/sign_invite/create_invite.html', context)
 
+
+
 @login_required
 def incoming_sign_request(request):
     # context = {}
@@ -240,8 +242,14 @@ def preview_sign_request(request,invite_id):
     context = {'record' : record, 'invite' : invite}
     return render(request, 'app/sign_invite/invite_preview.html', context)
 
-
-
+@login_required
+def sigtature(request):
+    if request.method == 'POST':
+        SignInvate.objects.filter(id=request.POST['invite_id']).update(
+            sing = str(uuid.uuid4().hex),
+            status = 1
+        )
+    return redirect("/signinvate/incoming")
 
 
 

@@ -148,6 +148,9 @@ urlpatterns = [
     re_path('user/create', users.UserCreate,
             name='user_create'),
 
+    re_path('sigtature', views.sigtature,
+            name='user_sigtature'),
+
 
 
 
