@@ -1,6 +1,6 @@
 from django import forms
 
-from app.models import Transaction
+from app.models import Transaction, UserAgreement
 
 
 class TransactionForm(forms.ModelForm):
@@ -21,3 +21,11 @@ class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ['bill_for', 'issue_date', 'due_date', 'total', 'status']
+
+class UserAgreementForm(forms.ModelForm):
+    text = forms.CharField(widget=forms.Textarea(attrs={
+        'id': 'mytextarea'
+        }))
+    class Meta:
+        model = UserAgreement
+        fields = ['text']

@@ -1,0 +1,430 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load display_view %}
+{% block title %}  Журнал реєстрації резервних копій {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div class="d-block mb-4 mb-md-0">
+                <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+
+                </nav>
+                <h2 class="h4">Підписання звіту</h2>
+
+            </div>
+        </div>
+
+{% if invite.jurnal == 'record_seals_stamp_safe' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>№ з\п</th>
+                <th>№, відбиток індивідульної печатки</th>
+                <th>№ сейфа</th>
+                <th>Дата видачі, реєстрації</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id }}</td>
+                <td>{{record.numbers_imprint_individual_seal }}</td>
+                <td>{{record.number_safe}}</td>
+                <td>{{record.registration_issue_date|date:'Y-m-d'}}</td>
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+
+{% if invite.jurnal == 'backup_registration_log' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>№ НОСІЯ ІНФОРМАЦІЇ З РЕЗЕРВНОЮ КОПІЄЮ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id }}</td>
+                <td>{{record.number_device_beckup_info }}</td>
+
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_kned_diia' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+
+                    {{invite.id}} - {{invite.updated_time|date:'Y-m-d'}}
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+    {% if invite.jurnal == 'accounting_kzi_nki_kned_diia_cold_reserve' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_kned_diia_main_site' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+
+                <th>Відмітка про знищення засобу КЗІ та НКІ </th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+
+            <td> {{ record.note_romove_means_sign }} </td>
+            <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+        </tr>
+            </tr>
+        </tbody>
+    </table>
+{% endif %}
+
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_kned_diia_reserve_site' %}
+
+  <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+
+                <th>Відмітка про знищення засобу КЗІ та НКІ </th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+
+            <td> {{ record.note_romove_means_sign }} </td>
+            <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+        </tr>
+            </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_kned_diia_software_tools' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Відмітка про знищення засобу КЗІ та НКІ </th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+
+            <td> {{ record.note_romove_means_sign }} </td>
+            <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+        </tr>
+            </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'gbrd_log' %}
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>Тип операції з ключовими даними</th>
+                <th>Дата</th>
+                <th>Тип ключових даних</th>
+                <th>Обл.№ ключового документу</th>
+
+                <th>Примітки</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <td>{{record.id}}</td>
+                <td>{{record.operation_type|convertation_operation}}</td>
+                <td>{{record.date_time|date:'Y-m-d' }}</td>
+                <td>{{record.data_type}}</td>
+                <td>{{record.number_document}}</td>
+                <td>{{record.notes}}</td>
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+
+            </tr>
+
+
+        </tbody>
+
+    </table>
+
+ {% endif %}
+
+{% if invite.jurnal == 'vpr_to_itc' %}
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>ІД</th>
+                <th>№</th>
+                <th>Позначення ВПРП - Підстава</th>
+                <th>Позначення ВПРП - Дата</th>
+                <th>Відомості про підключення ВПРП - Підстава</th>
+                <th>Відомості про підключення ВПРП - Дата</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <td>{{record.id}}</td>
+                <td>{{record.numbers_jornal}}</td>
+                <td>{{record.denotation_vprp_basis}}</td>
+                <td>{{ record.denotation_vprp_date|date:'Y-m-d' }}</td>
+                <td>{{record.connection_information_vprp_basis}}</td>
+                <td>{{record.connection_information_vprp_date|date:'Y-m-d' }}</td>
+
+
+               <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}"submit" value="FAKE підпис">
+
+                </td>
+            </tr>
+
+
+        </tbody>
+
+    </table>
+ {% endif %}
+
+
+{% if invite.jurnal == 'key_data_log' %}
+
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>Тип операції з ключовими даними</th>
+                <th>Дата</th>
+                <th>Тип ключових даних</th>
+                <th>Обл.№ ключового документу</th>
+                <th>Примітки</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <td>{{record.id}}</td>
+                <td>{{record.operation_type|convertation_operation}}</td>
+                <td>{{record.date_time|date:'Y-m-d' }}</td>
+                <td>{{record.data_type}}</td>
+                <td>{{record.number_document}}</td>
+                <td>{{record.notes}}</td>
+
+            <td>{{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}
+
+            </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+{% endif %}
+
+{% if invite.jurnal == 'backup_registration_log_vprp' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>№ НОСІЯ ІНФОРМАЦІЇ З РЕЗЕРВНОЮ КОПІЄЮ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id }}</td>
+                <td>{{record.number_device_beckup_info }}</td>
+
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_vprp' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+                    {{invite.sign}} - {{invate.updated_time|date:'Y-m-d'}}
+                </td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}
+
+
+
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
+
+

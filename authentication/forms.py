@@ -4,6 +4,7 @@
 from django import forms
 from .models import  User
 from .models import USER_TYPE_CHOICES
+from django.contrib.auth.forms import PasswordChangeForm
 
 class LoginForm(forms.Form):
     email = forms.CharField(
@@ -16,7 +17,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder" : "Password",
+                "placeholder" : "Пароль",
                 "class": "form-control"
             }
         ))
@@ -76,3 +77,37 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('last_name','username',  'password1', 'password2','email', 'role')
+
+
+
+class MyPasswordChangeForm(forms.Form):
+
+        old_password = forms.CharField(
+            label="Старий пароль",
+            widget=forms.PasswordInput(
+                attrs={
+                    "placeholder": "Старий пароль",
+                    "class": "form-control"
+                }
+            ))
+        password1 = forms.CharField(
+            label="Новий пароль",
+            widget=forms.PasswordInput(
+                attrs={
+                    "placeholder": "Новий пароль",
+                    "class": "form-control"
+                }
+            ))
+        password2 = forms.CharField(
+            label="Повторіть пароль",
+            widget=forms.PasswordInput(
+
+                attrs={
+                    "placeholder": "Повторіть пароль",
+                    "class": "form-control"
+                }
+            ))
+
+        class Meta:
+            model = User
+            fields = ('old_password', 'new_password1', 'new_password2')

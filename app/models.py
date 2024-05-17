@@ -17,6 +17,14 @@ class SignInvate(models.Model):
     class Meta:
         unique_together = (('jurnal', 'record_id', 'field_name'),)
 
+
+class UserAgreement(models.Model):
+    text = models.TextField(null=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+
+
+
 class Transaction(models.Model):
     bill_for = models.CharField(max_length=100)
     issue_date = models.DateField()

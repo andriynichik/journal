@@ -54,7 +54,7 @@
                 <td>{{transaction.created|date:'Y-m-d'}}</td>
                 <td>
                     {% if  transaction.user_sign.user_sign.last_name %}
-                        {% if transaction.status %}
+                        {% if transaction.user_sign.status %}
                                 Підписано:
                             {% else %}
                         	    Призназначено на підпис:

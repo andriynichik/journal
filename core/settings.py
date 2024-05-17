@@ -63,12 +63,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'app.middlewares.AjaxMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
 
 ROOT_URLCONF = 'core.urls'
 LOGIN_REDIRECT_URL = "home"  # Route defined in app/urls.py
-LOGOUT_REDIRECT_URL = "home"  # Route defined in app/urls.py
+LOGOUT_REDIRECT_URL = "login"  # Route defined in app/urls.py
 TEMPLATE_DIR = os.path.join(BASE_DIR, "core/templates")  # ROOT dir for templates
+SESSION_TIMEOUT_REDIRECT = 'login'
+
+SESSION_EXPIRE_SECONDS = 30*60
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
 
 TEMPLATES = [
     {

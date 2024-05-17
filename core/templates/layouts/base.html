@@ -14,8 +14,10 @@
     </title>
 
 
-        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+{#  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>#}
+<script type="text/javascript" charset="utf8" src="/static/assets/js/jquery-1.7.min.js"></script>
+
+    
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="120x120" href="/static/assets/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/assets/img/favicon/favicon-32x32.png">
@@ -36,8 +38,8 @@
 
     <link type="text/css" href="{% static 'app_assets/jquery/css/jquery-confirm.min.css' %}" rel="stylesheet">
 
-    <link href="/static/assets/js/DataTables/datatables.min.css" rel="stylesheet">
-<link href="/static/assets/js/DataTables/datatables.css" rel="stylesheet">
+    <link href="/../static/assets/js/DataTables/datatables.min.css" rel="stylesheet">
+<link href="/../static/assets/js/DataTables/datatables.css" rel="stylesheet">
 
     <!-- Specific Page CSS goes HERE  -->
     {% block stylesheets %}{% endblock stylesheets %}
@@ -50,12 +52,22 @@
                 language: {
                     "search": "Пошук:", 
                     "lengthMenu": "Показати _MENU_ записів",
-                }
+                    "info": "Сторінка _PAGE_ з _PAGES_",
+                    "infoEmpty": "Немає записів",
+                    "zeroRecords": "Нічого не знайдено",
+                    "infoFiltered": "(відфільтровано з _MAX_ записів)",
+                },  
+                order: [[0, 'desc']]
                    
         });
     });
 
 </script>
+ <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
 
 
 </head>

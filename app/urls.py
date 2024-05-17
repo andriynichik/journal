@@ -138,9 +138,14 @@ urlpatterns = [
 
     re_path('signinvate/incoming', views.incoming_sign_request,
             name='incoming_sign_request'),
+    re_path('signinvate/sign', views.sign_request,
+            name='sign_request'),
 
     re_path('signinvate/preview/(?P<invite_id>\d+)/$', views.preview_sign_request,
             name='preview_sign_request'),
+
+    re_path('sign/preview/(?P<invite_id>\d+)/$', views.preview_signed,
+            name='preview_signed'),
 
     re_path('users/list', users.UsersList,
             name='users_list'),
@@ -151,6 +156,10 @@ urlpatterns = [
     re_path('sigtature', views.sigtature,
             name='user_sigtature'),
 
+    re_path('change_password', users.change_password, name='change_password'),
+
+    re_path("settings/", views.settings, name="settings"),
+    re_path("user_agreemen_update/update", views.user_agreemen_update, name="user_agreemen_update")
 
 
 

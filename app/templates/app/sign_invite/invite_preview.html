@@ -400,12 +400,121 @@
         </tbody>
 
     </table>
-
-
  {% endif %}
 
 
+{% if invite.jurnal == 'key_data_log' %}
 
+
+
+<table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>Тип операції з ключовими даними</th>
+                <th>Дата</th>
+                <th>Тип ключових даних</th>
+                <th>Обл.№ ключового документу</th>
+                <th>Примітки</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+
+                <td>{{record.id}}</td>
+                <td>{{record.operation_type|convertation_operation}}</td>
+                <td>{{record.date_time|date:'Y-m-d' }}</td>
+                <td>{{record.data_type}}</td>
+                <td>{{record.number_document}}</td>
+                <td>{{record.notes}}</td>
+
+            <td><form action="">
+                         {% csrf_token %}
+                        <input type="file">
+                        <input type="submit" value="Підписати">
+                    </form>
+                    <form action="/sigtature" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="invite_id" value="{{ invite.id }}">
+                        <input type="submit" value="FAKE підпис">
+                    </form>
+            </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+{% endif %}
+
+{% if invite.jurnal == 'backup_registration_log_vprp' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+                <th>НП</th>
+                <th>№ НОСІЯ ІНФОРМАЦІЇ З РЕЗЕРВНОЮ КОПІЄЮ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id }}</td>
+                <td>{{record.number_device_beckup_info }}</td>
+
+                <td>
+                    <form action="">
+                        <input type="file">
+                        <input type="submit" value="Підписати">
+                    </form>
+                    <form action="/sigtature" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="invite_id" value="{{ invite.id }}">
+                        <input type="submit" value="FAKE підпис">
+                    </form>
+                </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endif %}
+
+
+{% if invite.jurnal == 'accounting_kzi_nki_vprp' %}
+
+    <table id="user_list" style="width:100%">
+        <thead>
+            <tr>
+             <th>ПН</th>
+                <th>Назва засобу КЗІ та його заводський номер</th>
+                <th>Тип НКІ та його обліковий номер</th>
+                <th>Акт організаційно-розпорядчого характеру щодо введення в експлуатацію засобів КЗІ</th>
+                <th>Дата взяття на облік засобів КЗІ та НКІ</th>
+                <th>Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ</th>
+                <th>Підпис</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>{{record.id}}</td>
+                <td>{{record.tool_kzi_type|convertation_kzi}} - {{record.tool_kzi_number}}</td>
+                <td>{{record.nki_type|convertation_nki}} - {{record.nki_number}}</td>
+                <td>{{ record.act_commissioning_kzi_facilities }}</td>
+                <td>{{ record.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>
+                <td>{{ record.inverter_numbers_peom }}</td>
+
+                <td>
+                    <form action="">
+                        <input type="file">
+                        <input type="submit" value="Підписати">
+                    </form>
+                    <form action="/sigtature" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="invite_id" value="{{ invite.id }}">
+                        <input type="submit" value="FAKE підпис">
+                    </form>
+                </td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}
 
 
 
@@ -416,3 +525,5 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}{% endblock javascripts %}
+
+

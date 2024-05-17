@@ -1,6 +1,6 @@
 {% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Login {% endblock %} 
+{% block title %} Вхід {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -25,7 +25,7 @@
                                 <br />
                                 <p>
                                     {% if msg %}
-                                        {{ msg | safe }}
+                                        <span style="color: #f62625">{{ msg | safe }}</span>
                                     {% else %}
                                        
                                     {% endif %}                                     
@@ -55,8 +55,10 @@
                                         </div>  
                                     </div>
                                     <!-- End of Form -->
-
-                                  
+                                    <p><input type="checkbox" name="read_rule" oninvalid="this.setCustomValidity('Підтвердіть прочитання умов використання')" oninput="setCustomValidity('')" required>
+                                       Підтверджую що прочитав  <a style="color: #0c85d0"  data-toggle="modal" data-target="#modal-default"> умови використання</a>
+                                     
+                                  </p>
 
                                 </div>
                                 <button type="submit" name="login" class="btn btn-block btn-primary">Вхід</button>
@@ -73,7 +75,27 @@
                 </div>
             </div>
         </section>
-
+<!-- Modal Content -->
+                                <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="h6 modal-title">Умови використання</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{ agreement_text|safe }}
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Прочитано</button>
+{#                                                <button type="button" class="btn btn-link text-danger ml-auto" data-dismiss="modal">Close</button>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
     </main>
 
 {% endblock content %}

@@ -6,16 +6,25 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
+
 from django.forms.utils import ErrorList
 from django.http import HttpResponse
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, MyPasswordChangeForm
 from .models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from app.models import UserAgreement
+from django.contrib.auth.hashers import check_password, make_password
 
 
 def login_view(request):
     form = LoginForm(request.POST or None)
+    agreement_text = UserAgreement.objects.filter().first()
+    if agreement_text:
+        text = agreement_text.text
+    else:
+        text = ''
 
     msg = None
 
@@ -37,7 +46,7 @@ def login_view(request):
         else:
             msg = 'Помилка валідації'
 
-    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+    return render(request, "accounts/login.html", {"form": form, "agreement_text":agreement_text.text , "msg" : msg})
 
 @login_required
 def register_user(request):
@@ -113,6 +122,7 @@ def UserCreate(request):
             user =  form.save(commit=False)
             user.is_active = True
             user.set_password(form.cleaned_data.get("password1"))
+            print(user.password)
             user.last_name = form.cleaned_data.get("last_name")
             user.role = form.cleaned_data.get("role")
             user.save()
@@ -122,9 +132,37 @@ def UserCreate(request):
     data['form'] = form
     return render(request, 'app/useus/user_create.html', data)
 
+@login_required
 def home(request):
     return render(request, 'app/useus/home.html')
 
+
+
+@login_required
+def change_password(request):
+
+    if request.method == 'POST':
+        user =  request.user
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('password1')
+        confirm_password = request.POST.get('password2')
+        if new_password == confirm_password:
+            if check_password(old_password, user.password):
+                user.set_password(new_password)
+                user.save()
+                login(request, user)
+                messages.success(request, 'Пароль змінено')
+            else:
+                messages.warning(request, 'Старий пароль введено невірно!')
+        else:
+            messages.warning(request, 'Нові паролі не співпадають!')
+
+    else:
+        messages.warning(request, 'Метод не підтримується!')
+
+    return redirect('settings')
+
+@login_required
 def user_logout(request):
     logout(request)
     return redirect('/accounts/login/')

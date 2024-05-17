@@ -10,3 +10,4 @@ python-dotenv
 gunicorn
 whitenoise
 django-import-export
+django-session-timeout

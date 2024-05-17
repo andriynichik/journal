@@ -16,11 +16,12 @@ from accounting_kzi_nki_kned_diia_main_site.models import Accounting_KZI_NKI_KNE
 from accounting_kzi_nki_kned_diia_reserve_site.models import Accounting_KZI_NKI_KNED_DIIA_RESERVE_SITE
 from accounting_kzi_nki_kned_diia_software_tools.models import Accounting_KZI_NKI_KNED_DIIA_SOFTWARE_TOOLS
 from authentication.models import User
+from authentication.forms import MyPasswordChangeForm
 from backup_registration_log.forms import  BackupRegistrationLogForm
 from backup_registration_log.models import BackupRegistrationLog
 from app.utils import set_pagination
-from app.forms import TransactionForm
-from app.models import Transaction , SignInvate
+from app.forms import TransactionForm, UserAgreementForm
+from app.models import Transaction , SignInvate, UserAgreement
 from key_data_log.models import KeyDataLog
 from record_seals_stamp_safe.models import RecordSealsStampSafe
 from accounting_kzi_nki_kned_diia.models import Accounting_KZI_NKI_KNED_DIIA
@@ -171,9 +172,36 @@ def change_jornal_sign(model, context, sign_id):
             model.objects.filter(id=context["record_id"]).update(admin_sign=sign_id)
 
 
+@login_required
+def user_agreemen_update(request):
+    if request.method == "POST":
+        text = request.POST.get('text')
+        # form = UserAgreementForm(request.POST)
+        agreemen = UserAgreement.objects.filter().first()
+        if agreemen:
+            agreemen.text = text
+            agreemen.save()
+        else:
+            new_agreemen = UserAgreement(text = text)
+            new_agreemen.save()
+
+        messages.success(request, 'Угоду користувача успішно змінено')
 
 
+    return redirect("/settings")
 
+
+@login_required
+def settings(request):
+    password_form = MyPasswordChangeForm()
+    agreement_text = UserAgreement.objects.filter().first()
+    if agreement_text:
+        text = agreement_text.text
+    else:
+        text = ''
+
+    context = {'password_form': password_form, 'agreement_text': text}
+    return render(request, 'app/useus/settings.html', context=context)
 
 
 @login_required
@@ -218,20 +246,11 @@ def incoming_sign_request(request):
     invite_list = list()
     user_incoming_invite = SignInvate.objects.filter(user_sign_id=request.user.id, status=0)
 
-
-    for invite in user_incoming_invite:
-        model_name = get_model_by_jornal(invite.jurnal)
-        record = model_name.objects.filter(id = invite.record_id).first()
-        invite_list.append({
-            "records" : record,
-            "invite" : invite,
-        })
-
-
-        # print(model_name)
     context = {"invates" : user_incoming_invite, "mod": True}
     return render(request, 'app/sign_invite/incoming_invite.html', context)
 
+
+@login_required
 def preview_sign_request(request,invite_id):
     invite = get_object_or_404(SignInvate, id=int(invite_id))
     if invite.user_sign_id != request.user.id:
@@ -252,10 +271,23 @@ def sigtature(request):
     return redirect("/signinvate/incoming")
 
 
+@login_required
+def sign_request(request):
+    user_incoming_invite = SignInvate.objects.filter(user_sign_id=request.user.id, status=1)
+    context = {"invates": user_incoming_invite}
+    return render(request, 'app/sign_invite/sign_request.html', context)
 
 
-
-
+@login_required
+def preview_signed(request,invite_id):
+    invite = get_object_or_404(SignInvate, id=int(invite_id))
+    if invite.user_sign_id != request.user.id:
+        messages.warning(request, 'Відмовлено в доступі')
+        return redirect("/signinvate/sign")
+    model_name = get_model_by_jornal(invite.jurnal)
+    record = model_name.objects.get(id = invite.record_id)
+    context = {'record' : record, 'invite' : invite}
+    return render(request, 'app/sign_invite/sign_preview.html', context)
 
 @login_required
 def modal(request):
