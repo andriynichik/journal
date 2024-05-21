@@ -60,6 +60,10 @@
                         {% if transaction.denotation_vprp_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.denotation_vprp_sign.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -76,6 +80,10 @@
                         {% if transaction.connection_information_vprp_sysadmin_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.connection_information_vprp_sysadmin_sign.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -93,6 +101,10 @@
                         {% if transaction.disconectation_vprp_sysadmin_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.disconectation_vprp_sysadmin_sign.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -108,6 +120,10 @@
                         {% if transaction.disconectation_vprp_seqadmin_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.disconectation_vprp_seqadmin_sign.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}

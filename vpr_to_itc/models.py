@@ -11,16 +11,16 @@ class VPRPTOITC(models.Model):
     numbers_jornal =  models.CharField(max_length=32)
     denotation_vprp_basis = models.CharField(max_length=32)
     denotation_vprp_date = models.DateField()
-    denotation_vprp_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    denotation_vprp_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                related_name='denotation_vpr_sign', null=True)
-    connection_information_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    connection_information_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                related_name='connection_information_vprp_admin_sign', null=True)
     connection_information_vprp_basis = models.CharField(max_length=32)
     connection_information_vprp_date = models.DateField(null=True, blank=True)
-    disconectation_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    disconectation_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                           related_name='disconectation_vprp_sysadmin_sign', null=True)
 
-    disconectation_vprp_seqadmin_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    disconectation_vprp_seqadmin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                           related_name='disconectation_vprp_seqadmin_sign', null=True)
 
     created = models.DateTimeField(auto_now_add=True)

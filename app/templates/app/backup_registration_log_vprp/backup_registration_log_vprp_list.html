@@ -57,6 +57,10 @@
                         {% if transaction.user_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.user_sign.id }}">
+                                    <span class="fas fa-backspace mr-2"></span>cкасувати
+                               </a>
+                               <br>
                         	    Призназначено на підпис:
                         {% endif %}
                          </a> {{transaction.user_sign.user_sign.last_name}}
@@ -70,9 +74,13 @@
 {#            <td><a class="dropdown-item edit_item" href="/signinvate/create/backup_registration_log/user_sign/{{transaction.id}}">#}
 {##}
 {#                 <span class="fas fa-file-invoice mr-2"></span>Призначити на підпис</a></td>#}
-                <td> <a class="dropdown-item edit_item" href="/backup_registration_log_vprp/edit/{{transaction.id}}">
-                    <span class="fas fa-edit mr-2"></span>Ред.
-                    </a>
+
+                <td>
+                    {% if not transaction.user_sign.status %}
+                        <a class="dropdown-item edit_item" href="/backup_registration_log_vprp/edit/{{transaction.id}}">
+                        <span class="fas fa-edit mr-2"></span>Ред.
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

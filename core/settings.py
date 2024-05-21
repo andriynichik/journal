@@ -27,6 +27,9 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://localhost:5085', 'http://127.0.0.1:8000', 'http://127.0.0.1:5085']
 AUTH_USER_MODEL = 'authentication.User'
 
+TIME_ZONE = 'Europe/Kyiv'
+USE_TZ = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -128,13 +131,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 #############################################################
 # SRC: https://devcenter.heroku.com/articles/django-assets

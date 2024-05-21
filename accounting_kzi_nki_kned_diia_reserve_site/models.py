@@ -22,11 +22,11 @@ class Accounting_KZI_NKI_KNED_DIIA_RESERVE_SITE(models.Model):
     act_commissioning_kzi_facilities = models.CharField(max_length=128)
     date_taking_account_kzi_nki = models.DateField()
     inverter_numbers_peom =  models.CharField(max_length=128)
-    accounting_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    accounting_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='accounting_kzi_nki_kned_diia_reserve_site', null=True)
-    get_remedy_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    get_remedy_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='get_remedy_kzi_nki_sign_reserve_site', null=True)
-    note_return_means_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    note_return_means_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                related_name='note_return_means_sign_reserve_site', null=True)
     note_romove_means_sign = models.CharField(max_length=128, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

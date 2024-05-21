@@ -1,12 +1,16 @@
 version: '3.8'
 services:
-  appseed-app:
-    container_name: appseed_app
+  journal-app:
+    container_name: journal_app
     restart: always
     build: .
     networks:
       - db_network
       - web_network
+    environment:
+      - DEBUG=1
+    env_file: .env
+
   nginx:
     container_name: nginx
     restart: always
@@ -18,7 +22,7 @@ services:
     networks:
       - web_network
     depends_on: 
-      - appseed-app
+      - journal-app
 networks:
   db_network:
     driver: bridge

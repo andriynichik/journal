@@ -59,6 +59,10 @@
                         {% if transaction.author_position_signature.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.author_position_signature.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -76,6 +80,10 @@
                         {% if transaction.security_signature.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.security_signature.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                                 Призначено на підпис:
 
                         {% endif %}

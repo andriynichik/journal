@@ -11,10 +11,10 @@ class RecordSealsStampSafe(models.Model):
     number_safe = models.TextField()
     registration_issue_date = models.DateField()
     # author_position = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='author_position_created')
-    author_position_signature = models.ForeignKey(SignInvate, on_delete=models.CASCADE, related_name='signature' , null=True)
+    author_position_signature = models.ForeignKey(SignInvate, on_delete=models.SET_NULL, related_name='signature' , null=True)
     # author_admin_security = models.ForeignKey(User,null=True,  on_delete=models.CASCADE, related_name='author_admin_security')
     return_date = models.DateField(null=True, blank=True)
-    security_signature = models.ForeignKey(SignInvate, on_delete=models.CASCADE, related_name='signature_admin_security', null=True)
+    security_signature = models.ForeignKey(SignInvate, on_delete=models.SET_NULL, related_name='signature_admin_security', null=True)
     notes = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 

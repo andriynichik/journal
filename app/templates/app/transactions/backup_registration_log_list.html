@@ -57,6 +57,10 @@
                         {% if transaction.user_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.user_sign.id }}">
+                            <span class="fas fa-backspace mr-2"></span>cкасувати
+                            </a>
+                            <br>
                         	    Призназначено на підпис:
                         {% endif %}
                          </a> {{transaction.user_sign.user_sign.last_name}}

@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from datetime import timezone
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -30,6 +31,9 @@ from gbrd_log.models import GRDBLog
 from backup_registration_log_vprp.models import BackupRegistrationLogVPRP
 from accounting_kzi_nki_vprp.models import Accounting_KZI_NKI_VPRP
 import uuid
+from datetime import datetime
+from django.utils import timezone
+
 
 # @login_required
 # def RecordSealsStampSafeCreate(request):
@@ -203,6 +207,24 @@ def settings(request):
     context = {'password_form': password_form, 'agreement_text': text}
     return render(request, 'app/useus/settings.html', context=context)
 
+@login_required
+def sign_invite_cancel(request, invite_id):
+    referer = request.META.get('HTTP_REFERER')
+    if not referer:
+        referer = "/home"
+
+    try:
+        invite = SignInvate.objects.get(id = invite_id )
+        if invite.status == 0:
+            invite.delete()
+            messages.success(request, 'Призначення на підпис скасовано')
+        else:
+            messages.warning(request, 'Помилка доступу')
+
+    except Exception as error:
+        messages.warning(request, str(error))
+
+    return redirect(referer)
 
 @login_required
 def sign_invite_create(request, jurnal,  field_name, record_id):
@@ -266,7 +288,8 @@ def sigtature(request):
     if request.method == 'POST':
         SignInvate.objects.filter(id=request.POST['invite_id']).update(
             sing = str(uuid.uuid4().hex),
-            status = 1
+            status = 1,
+            updated_time = timezone.now()
         )
     return redirect("/signinvate/incoming")
 

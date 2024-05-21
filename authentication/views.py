@@ -21,7 +21,7 @@ from django.contrib.auth.hashers import check_password, make_password
 def login_view(request):
     form = LoginForm(request.POST or None)
     agreement_text = UserAgreement.objects.filter().first()
-    if agreement_text:
+    if  agreement_text is not None:
         text = agreement_text.text
     else:
         text = ''
@@ -46,7 +46,7 @@ def login_view(request):
         else:
             msg = 'Помилка валідації'
 
-    return render(request, "accounts/login.html", {"form": form, "agreement_text":agreement_text.text , "msg" : msg})
+    return render(request, "accounts/login.html", {"form": form, "agreement_text":text , "msg" : msg})
 
 @login_required
 def register_user(request):

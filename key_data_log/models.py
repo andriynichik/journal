@@ -18,9 +18,9 @@ class KeyDataLog(models.Model):
     date_time = models.DateTimeField()
     data_type = models.CharField(max_length=128)
     number_document = models.CharField(max_length=128)
-    user_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    user_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='user_sign_key_data', null=True)
-    admin_sign = models.ForeignKey(SignInvate, on_delete=models.CASCADE,
+    admin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='admin_sign_key_data', null=True)
     notes = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

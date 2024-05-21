@@ -64,6 +64,10 @@
                         {% if transaction.accounting_kzi_nki_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.accounting_kzi_nki_sign.id }}">
+                                    <span class="fas fa-backspace mr-2"></span>cкасувати
+                               </a>
+                               <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -80,6 +84,10 @@
                         {% if transaction.get_remedy_kzi_nki_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.get_remedy_kzi_nki_sign.id }}">
+                                    <span class="fas fa-backspace mr-2"></span>cкасувати
+                               </a>
+                               <br>
                                 Призначено на підпис:
 
                         {% endif %}
@@ -95,6 +103,10 @@
                         {% if transaction.note_return_means_sign.status %}
                                 Підписано:
                             {% else %}
+                            <a href="/signinvate/remove/{{ transaction.note_return_means_sign.id }}">
+                                    <span class="fas fa-backspace mr-2"></span>cкасувати
+                               </a>
+                               <br>
                                 Призначено на підпис:
 
                         {% endif %}

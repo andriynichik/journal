@@ -19,7 +19,7 @@
                 <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
 
                 </nav>
-                <h2 class="h4"> Запити на підписання запису в журналі</h2>
+                <h2 class="h4"> Запити на підписання запису в журналі </h2>
 
             </div>
         </div>
@@ -43,10 +43,10 @@
 
                 <td>{{invite.id}}</td>
                 <td>{{invite.jurnal|get_jornal_name}}</td>
-                <td>{{invite.created_time|date:'Y-m-d'}}</td>
+                <td>{{invite.created_time|date:'Y-m-d H:i:s'}}</td>
                 <td><a href="/signinvate/preview/{{invite.id}}">
                      <span class="fas fa-file-signature mr-2"></span>
-                     Переглянути на підписати
+                     Переглянути та підписати
                 </a></td>
 
    </tr>

@@ -27,4 +27,4 @@ class User(AbstractUser):
         max_length=32,
         choices=USER_TYPE_CHOICES,
     )
-
+    last_password_update = models.DateTimeField(auto_now=True , editable=True, null=True, blank=True)
