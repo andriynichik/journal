@@ -2,8 +2,12 @@ from app.models import SignInvate
 from django.db import models
 
 TOOL_KZI_CHOICE = (
-    (1, '"Електронний ключ" Кристал-1'),
-    (2, '"Електронний ключ" Алмаз-1К')
+    (1, 'Шлюз захисту "Бар`єр-301"'),
+    (2, 'Мережевий IP-шифратор "Канал-401"'),
+    (3, 'Мережний криптомодуль "Гряда-301" мікропристрій'),
+    (4, 'Мережний криптомодуль "Гряда-301" ВП'),
+    (5, '"Електронний ключ" Алмаз-1К'),
+    (6, '"Електронний ключ" Кристал-1'),
 )
 
 NKI_TYPE_CHOICE = (
@@ -21,7 +25,7 @@ class Accounting_KZI_NKI_KNED_DIIA_RESERVE_SITE(models.Model):
     nki_number = models.IntegerField()
     act_commissioning_kzi_facilities = models.CharField(max_length=128)
     date_taking_account_kzi_nki = models.DateField()
-    inverter_numbers_peom =  models.CharField(max_length=128)
+    inverter_numbers_peom =  models.CharField(max_length=128, null=True, blank=True)
     accounting_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='accounting_kzi_nki_kned_diia_reserve_site', null=True)
     get_remedy_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,

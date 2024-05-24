@@ -22,7 +22,7 @@ class Accounting_KZI_NKI_KNED_DIIA(models.Model):
     nki_number = models.IntegerField()
     act_commissioning_kzi_facilities = models.CharField(max_length=128)
     date_taking_account_kzi_nki = models.DateField()
-    inverter_numbers_peom =  models.CharField(max_length=128)
+    inverter_numbers_peom =  models.CharField(max_length=128, null=True, blank=True)
     accounting_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL, related_name='accounting_kzi_nki_sign', null=True)
     get_remedy_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL, related_name='get_remedy_kzi_nki_sign', null=True)
     note_return_means_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL, related_name='note_return_means_sign', null=True)

@@ -52,7 +52,7 @@
         {% for transaction in transactions %}
 
                 <td>{{transaction.id}}</td>
-                <td>{{transaction.tool_kzi_type|convertation_kzi}} - {{transaction.tool_kzi_number}}</td>
+                <td>{{transaction.tool_kzi_type|convertation_kzi_software_tools}} - {{transaction.tool_kzi_number}}</td>
                 <td>{{transaction.nki_type|convertation_nki}} - {{transaction.nki_number}}</td>
                 <td>{{ transaction.act_commissioning_kzi_facilities }}</td>
                 <td>{{ transaction.date_taking_account_kzi_nki|date:'Y-m-d' }}</td>

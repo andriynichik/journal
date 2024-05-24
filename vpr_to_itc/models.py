@@ -15,7 +15,7 @@ class VPRPTOITC(models.Model):
                                                related_name='denotation_vpr_sign', null=True)
     connection_information_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                related_name='connection_information_vprp_admin_sign', null=True)
-    connection_information_vprp_basis = models.CharField(max_length=32)
+    connection_information_vprp_basis = models.CharField(max_length=256, null=True, blank=True)
     connection_information_vprp_date = models.DateField(null=True, blank=True)
     disconectation_vprp_sysadmin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                           related_name='disconectation_vprp_sysadmin_sign', null=True)

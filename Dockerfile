@@ -3,7 +3,7 @@ FROM python:3.9
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
+ENV LD_LIBRARY_PATH=/EUSignCP/Modules/64
 
 COPY requirements.txt .
 # install python dependencies

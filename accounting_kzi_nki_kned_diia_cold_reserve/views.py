@@ -54,9 +54,27 @@ def Accounting_KZI_NKI_KNED_DIIA_COLD_RESERVE_Edit(request, pk_id):
                 note_romove_means_sign=form.cleaned_data['note_romove_means_sign'],
             )
             messages.success(request, 'Дані змінено')
-            return redirect('accounting_kzi_nki_kned_diia_cold_reserve/list')
+            return redirect('/accounting_kzi_nki_kned_diia_cold_reserve/list')
+        else:
+            messages.error(request, 'Не вірно заповнена форма')
+
     jurnal = Accounting_KZI_NKI_KNED_DIIA_COLD_RESERVE.objects.get(pk=pk_id)
     form = Accounting_KZI_NKI_KNED_DIIA_COLD_RESERVEForm(instance=jurnal)
+    if jurnal.accounting_kzi_nki_sign or jurnal.get_remedy_kzi_nki_sign or jurnal.note_return_means_sign:
+        form.fields['tool_kzi_type'].widget.attrs['readonly'] = 'readonly'
+        form.fields['tool_kzi_type'].widget.attrs['style']= 'pointer-events: none;'
+        form.fields['tool_kzi_number'].widget.attrs['readonly']= 'readonly'
+        form.fields['tool_kzi_number'].widget.attrs['style'] = 'pointer-events: none;'
+        form.fields['nki_type'].widget.attrs['readonly']= 'readonly'
+        form.fields['nki_type'].widget.attrs['style'] = 'pointer-events: none;'
+        form.fields['nki_number'].widget.attrs['readonly']= 'readonly'
+        form.fields['nki_number'].widget.attrs['style'] = 'pointer-events: none;'
+        form.fields['act_commissioning_kzi_facilities'].widget.attrs['readonly'] = 'readonly'
+        form.fields['act_commissioning_kzi_facilities'].widget.attrs['style'] = 'pointer-events: none;'
+        form.fields['date_taking_account_kzi_nki'].widget.attrs['readonly'] = 'readonly'
+        form.fields['date_taking_account_kzi_nki'].widget.attrs['style'] = 'pointer-events: none;'
+
+
 
     context = {'jurnal' : jurnal, 'form': form}
     return render(request, 'app/accounting_kzi_nki_kned_diia_cold_reserve/accounting_kzi_nki_kned_diia_cold_reserve_edit.html', context)

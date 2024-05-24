@@ -26,7 +26,8 @@ class VPRPTOITCForm(forms.ModelForm):
         attrs={'class': 'form-control datepicker_input transaction', 'placeholder': 'yyyy-mm-dd'}))
 
     connection_information_vprp_basis = forms.CharField(
-        label="Відомості про підключення ВПРП- Підстава",
+        required=False,
+        label="Відомості про відключення ВПРП- Підстава",
         widget=forms.TextInput(
             attrs={
                 "placeholder" : "Відомості про підключення ВПРП - Підстава",
@@ -35,7 +36,7 @@ class VPRPTOITCForm(forms.ModelForm):
         ))
 
     connection_information_vprp_date = forms.DateField(required=False ,
-                                  label="Відомості про підключення ВПРП - Дата", widget=forms.DateInput(
+                                  label="Відомості про відключення ВПРП - Дата", widget=forms.DateInput(
         attrs={'class': 'form-control datepicker_input transaction', 'placeholder': 'yyyy-mm-dd'}))
 
 

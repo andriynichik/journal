@@ -25,7 +25,7 @@ class Accounting_KZI_NKI_KNED_DIIA_MAIN_SITE(models.Model):
     nki_number = models.IntegerField()
     act_commissioning_kzi_facilities = models.CharField(max_length=128)
     date_taking_account_kzi_nki = models.DateField()
-    inverter_numbers_peom =  models.CharField(max_length=128)
+    inverter_numbers_peom =  models.CharField(max_length=128, null=True, blank=True)
     accounting_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='accounting_kzi_nki_kned_diia_main_site', null=True)
     get_remedy_kzi_nki_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,

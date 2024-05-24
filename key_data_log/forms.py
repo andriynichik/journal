@@ -24,7 +24,7 @@ class KeyDataLogForm(forms.ModelForm):
             }
         ))
     number_document = forms.CharField(
-
+        required=False,
         label="Обл.№ ключового документу",
         widget=forms.TextInput(
             attrs={

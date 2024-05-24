@@ -17,7 +17,7 @@ class KeyDataLog(models.Model):
     operation_type = models.IntegerField(choices=OPERATION_TYPE_CHOICE)
     date_time = models.DateTimeField()
     data_type = models.CharField(max_length=128)
-    number_document = models.CharField(max_length=128)
+    number_document = models.CharField(max_length=128, null=True, blank=True)
     user_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,
                                                 related_name='user_sign_key_data', null=True)
     admin_sign = models.ForeignKey(SignInvate, on_delete=models.SET_NULL,

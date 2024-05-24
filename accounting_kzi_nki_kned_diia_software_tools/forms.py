@@ -49,6 +49,7 @@ class Accounting_KZI_NKI_KNED_DIIA_SOFTWARE_TOOLSForm(forms.ModelForm):
         attrs={'class': 'form-control datepicker_input transaction', 'placeholder': 'yyyy-mm-dd'}))
 
     inverter_numbers_peom = forms.CharField(
+        required=False,
         label="Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ",
         widget=forms.TextInput( attrs={
                 "placeholder": "Інвертарні номери ПЕОМ, на яких встановлено (проінстальовано) програмні засоби КЗІ",
@@ -57,6 +58,7 @@ class Accounting_KZI_NKI_KNED_DIIA_SOFTWARE_TOOLSForm(forms.ModelForm):
     )
 
     note_romove_means_sign = forms.CharField(
+        required=False,
         label="Відмітка про знищення засобу КЗІ та НКІ (дата, підпис відповідальної особи)",
         widget=forms.TextInput( attrs={
                 "placeholder": "Відмітка про знищення засобу КЗІ та НКІ",
