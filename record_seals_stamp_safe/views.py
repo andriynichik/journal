@@ -9,18 +9,21 @@ from .forms import RecordSealsStampSafeForm
 from django.utils.timezone import now
 from authentication.models import User
 from django.contrib import messages
+from app.decorators import requires_role
 
 
 from django import template
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def RecordSealsStampSafeList(request):
     transactions = RecordSealsStampSafe.objects.all().select_related()
 
     data = {'transactions': transactions}
     return render(request, 'app/record_seals_stamp_safe/record_seals_stamp_safe_list.html',context=data)
 @login_required
+@requires_role(roles = ['security_admin'])
 def RecordSealsStampSafeCreate(request):
     data = {}
     form = RecordSealsStampSafeForm(request.POST or None)
@@ -40,6 +43,7 @@ def RecordSealsStampSafeCreate(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def RecordSealsStampSafeEdit(request, pk_id):
     if request.method == "POST":
         form = RecordSealsStampSafeForm(request.POST)

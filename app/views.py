@@ -31,9 +31,8 @@ from gbrd_log.models import GRDBLog
 from backup_registration_log_vprp.models import BackupRegistrationLogVPRP
 from accounting_kzi_nki_vprp.models import Accounting_KZI_NKI_VPRP
 import uuid
-from datetime import datetime
 from django.utils import timezone
-
+from app.decorators import requires_role
 
 # @login_required
 # def RecordSealsStampSafeCreate(request):

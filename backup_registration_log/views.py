@@ -4,16 +4,19 @@ from django.shortcuts import render,redirect
 from .forms import BackupRegistrationLogForm
 from django.utils.timezone import now
 from django.contrib import messages
+from app.decorators import requires_role
 
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def BackupRegistrationLogList(request):
     transactions = BackupRegistrationLog.objects.all().select_related()
 
     data = {'transactions': transactions}
     return render(request, 'app/transactions/backup_registration_log_list.html',context=data)
 @login_required
+@requires_role(roles = ['security_admin'])
 def BackupRegistrationLogCreate(request):
     data = {}
     form = BackupRegistrationLogForm(request.POST or None)
@@ -31,6 +34,7 @@ def BackupRegistrationLogCreate(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def BackupRegistrationLogEdit(request, log_id):
     if request.method == "POST":
         form = BackupRegistrationLogForm(request.POST)

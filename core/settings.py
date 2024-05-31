@@ -28,7 +28,7 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://localhost:5085', 'http:
 AUTH_USER_MODEL = 'authentication.User'
 
 TIME_ZONE = 'Europe/Kyiv'
-USE_TZ = True
+USE_TZ = False
 
 # Application definition
 
@@ -161,5 +161,5 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

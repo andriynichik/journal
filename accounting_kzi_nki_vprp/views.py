@@ -4,8 +4,10 @@ from django.shortcuts import render,redirect
 from .forms import Accounting_KZI_NKI_VPRPForm
 from django.utils.timezone import now
 from django.contrib import messages
+from app.decorators import requires_role
 
 @login_required
+@requires_role(roles = ['vzi'])
 def Accounting_KZI_NKI_VPRPList(request):
     transactions = Accounting_KZI_NKI_VPRP.objects.all().select_related()
 
@@ -14,6 +16,7 @@ def Accounting_KZI_NKI_VPRPList(request):
 
 
 @login_required
+@requires_role(roles = ['vzi'])
 def Accounting_KZI_NKI_VPRPCreate(request):
     data = {}
     form = Accounting_KZI_NKI_VPRPForm(request.POST or None)
@@ -39,6 +42,7 @@ def Accounting_KZI_NKI_VPRPCreate(request):
 
 
 @login_required
+@requires_role(roles = ['vzi'])
 def Accounting_KZI_NKI_VPRPEdit(request, pk_id):
     if request.method == "POST":
         form = Accounting_KZI_NKI_VPRPForm(request.POST)

@@ -9,7 +9,10 @@ services:
       - web_network
     environment:
       - DEBUG=1
+      - UDEV=1
     env_file: .env
+#    devices:
+#      - '/dev/disk2s1'
 
   nginx:
     container_name: nginx

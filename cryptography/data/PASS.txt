@@ -1,0 +1,1 @@
+EnumKeyMediaDevices -  type: 1, device: 0, description: ['е.ключ ІІТ Кристал-1']

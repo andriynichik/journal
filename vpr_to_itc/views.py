@@ -4,8 +4,10 @@ from django.shortcuts import render,redirect
 from .forms import VPRPTOITCForm
 from django.utils.timezone import now
 from django.contrib import messages
+from app.decorators import requires_role
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def VPRPTOITC_List(request):
     transactions = VPRPTOITC.objects.all().select_related()
 
@@ -14,6 +16,7 @@ def VPRPTOITC_List(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def VPRPTOITC_Create(request):
     data = {}
     form = VPRPTOITCForm(request.POST or None)
@@ -36,6 +39,7 @@ def VPRPTOITC_Create(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin'])
 def VPRPTOITC_Edit(request, pk_id):
     if request.method == "POST":
         form = VPRPTOITCForm(request.POST)

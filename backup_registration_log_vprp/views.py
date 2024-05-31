@@ -4,16 +4,18 @@ from django.shortcuts import render,redirect
 from .forms import BackupRegistrationLogVPRPForm
 from django.utils.timezone import now
 from django.contrib import messages
-
+from app.decorators import requires_role
 
 
 @login_required
+@requires_role(roles = ['vzi'])
 def BackupRegistrationLogVPRPList(request):
     transactions = BackupRegistrationLogVPRP.objects.all().select_related()
 
     data = {'transactions': transactions}
     return render(request, 'app/backup_registration_log_vprp/backup_registration_log_vprp_list.html',context=data)
 @login_required
+@requires_role(roles = ['vzi'])
 def BackupRegistrationLogVPRPCreate(request):
     data = {}
     form = BackupRegistrationLogVPRPForm(request.POST or None)
@@ -31,6 +33,7 @@ def BackupRegistrationLogVPRPCreate(request):
 
 
 @login_required
+@requires_role(roles = ['vzi'])
 def BackupRegistrationLogVPRPEdit(request, log_id):
     if request.method == "POST":
         form = BackupRegistrationLogVPRPForm(request.POST)

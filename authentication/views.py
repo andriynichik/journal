@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from app.models import UserAgreement
 from django.contrib.auth.hashers import check_password, make_password
+from app.decorators import requires_role
 
 
 def login_view(request):
@@ -91,6 +92,7 @@ def register_user(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin', 'audit_admin'])
 def UsersList(request):
     transactions = User.objects.all()
     data = {'transactions': transactions}
@@ -98,6 +100,7 @@ def UsersList(request):
 
 
 @login_required
+@requires_role(roles = ['security_admin', 'audit_admin'])
 def UserCreate(request):
     data = {}
     form = SignUpForm(request.POST or None)
@@ -122,7 +125,6 @@ def UserCreate(request):
             user =  form.save(commit=False)
             user.is_active = True
             user.set_password(form.cleaned_data.get("password1"))
-            print(user.password)
             user.last_name = form.cleaned_data.get("last_name")
             user.role = form.cleaned_data.get("role")
             user.save()

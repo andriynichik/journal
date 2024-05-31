@@ -1,0 +1,15 @@
+[
+    {
+        "issuerCNs": [
+            "Тестовий комплес КНЕДП \"Дія\""
+        ],
+        "address": "test2-ca.diia.org.ua",
+        "ocspAccessPointAddress": "test2-ca.diia.org.ua/services/ocsp/",
+        "ocspAccessPointPort": "80",
+        "cmpAddress": "test2-ca.diia.org.ua",
+        "tspAddress": "test2-ca.diia.org.ua",
+        "tspAddressPort": "80",
+        "directAccess": true,
+        "qscdSNInCert": true
+    }
+]
